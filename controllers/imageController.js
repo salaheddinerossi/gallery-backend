@@ -275,7 +275,9 @@ async function giveFeedback(req,res){
     user_feedback = [];
     index=0;
     similar_images.map((img)=>{
-        if(img.isRelevent){
+        console.log(img.isRelevant)
+        if(img.isRelevant){
+
             obj={
                 index:index,
                 relevance:"bon"
@@ -299,7 +301,7 @@ async function giveFeedback(req,res){
         category_images_data: similar_images.map((img) => img.properties),
         user_feedback:user_feedback
     };
-
+    console.log(user_feedback)
     const endpoint = 'http://127.0.0.1:5000/api/update_weights_and_similarity';
 
     const flaskResponse1 = await axios.post(endpoint, postData);
@@ -348,7 +350,7 @@ async function giveFeedback(req,res){
             .map(img => JSON.parse(img.properties));
 
 
-        console.log(seuil);
+        console.log(flaskResponse1.data.weights);
         const postData1 = {
             selected_image_data: selectedImageProperties,
             category_images_data: categoryImagesData,
